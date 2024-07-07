@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Signup() {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,7 +15,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!username || !email || !password) {
+    if (!name || !email || !password) {
       setError("All fields are necessary")
       return
     }
@@ -42,7 +42,7 @@ function Signup() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          username, email, password
+          name, email, password
         })
       })
 
@@ -67,7 +67,7 @@ function Signup() {
           <input
             type="text"
             placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
