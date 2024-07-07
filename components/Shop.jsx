@@ -1,21 +1,16 @@
 "use client"
 
-import { signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
+import Navbar from "./ui/Navbar"
 
 function Shop() {
   const { data: session } = useSession()
 
   return (
     <div>
+      <Navbar/>
       <div>
-        <div>
-          Name: {session?.user?.name}
-        </div>
-        <div>
-          Email: {session?.user?.email}
-        </div>
-        <button onClick={() => signOut()}>Logout</button>
+        
       </div>
     </div>
   )
