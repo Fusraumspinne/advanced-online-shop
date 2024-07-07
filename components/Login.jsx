@@ -4,6 +4,8 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Input from './ui/Input'
+import MagicButton from './ui/Button'
 
 function Login(){
   const [email, setEmail] = useState("")
@@ -39,19 +41,11 @@ function Login(){
         <h1>Login</h1>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="E-Mail"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            name=""
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)}/>
 
-          <button>Login</button>
+          <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)}/>
+
+          <MagicButton type={"submit"} content={"Login"} />
 
           {error && <div>{error}</div>}
 

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Input from './ui/Input'
+import MagicButton from './ui/Button'
 
 function Signup() {
   const [name, setName] = useState("");
@@ -64,24 +66,13 @@ function Signup() {
         <h1>Sign Up</h1>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Username"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="E-Mail"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            name=""
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <Input type={"text"} placeholder={"Username"} onChange={(e) => setName(e.target.value)} />
 
-          <button>Sign Up</button>
+          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} />
+
+          <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} />
+
+          <MagicButton type={"submit"} content={"Sign Up"} />
 
           {error && <div>{error}</div>}
 
