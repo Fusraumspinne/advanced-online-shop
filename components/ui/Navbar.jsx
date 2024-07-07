@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap"
-import Button from "./Button";
+import MagicButton from "./Button";
 import { signOut } from "next-auth/react"
 
 function Navigationbar() {
@@ -19,7 +19,7 @@ function Navigationbar() {
                     <Nav.Link className="text-light" href="/">Support</Nav.Link>
                     <Nav.Link className="text-light" href="/">Account</Nav.Link>
                     </Nav>
-                    <Button funktion={() => signOut()} variant={"outline-light"} content={"Logout"}/>
+                    <MagicButton funktion={() => signOut()} variant={"outline-light"} content={"Logout"}/>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

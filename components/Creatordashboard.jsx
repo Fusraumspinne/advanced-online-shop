@@ -1,12 +1,24 @@
 "use client"
 
 import React from 'react'
-import Navbar from "./ui/Navbar"
+import Navigationbar from "./ui/Navbar"
+import MagicButton from './ui/Button'
+import { useRouter } from 'next/navigation'
 
 function Creatordashboard() {
+  const router = useRouter()
+
+  const createProduct = () => {
+    router.replace("productcreation")
+  }
+
   return (
     <div>
-        <Navbar/>
+        <Navigationbar/>
+
+        <div>
+          <MagicButton content={"Create Product"} funktion={createProduct}/>
+        </div>
     </div>
   )
 }

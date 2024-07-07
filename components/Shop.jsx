@@ -1,14 +1,11 @@
 "use client"
 
-import { useSession } from "next-auth/react"
-import Navbar from "./ui/Navbar"
+import Navigationbar from "./ui/Navbar"
 
 function Shop() {
-  const { data: session } = useSession()
-
   return (
     <div>
-      <Navbar/>
+      <Navigationbar/>
       <div>
         
       </div>
