@@ -1,14 +1,21 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 
-function Textarea({placeholder, rows, onChange}) {
+function Textarea({placeholder, rows, onChange, isLabel, contentLabel, extraClass}) {
   return (
-    <Form.Control
-      as="textarea"  
-      placeholder={placeholder}
-      rows={rows}
-      onChange={onChange}
-    />
+    <div className={extraClass}>
+      {isLabel && (
+        <label for="textarea" class="form-label fs-5">{contentLabel}</label>
+      )}
+      <Form.Control
+        as="textarea"  
+        placeholder={placeholder}
+        rows={rows}
+        onChange={onChange}
+        style={{ resize: 'none' }}
+        id='textarea'
+      />
+    </div>
   )
 }
 

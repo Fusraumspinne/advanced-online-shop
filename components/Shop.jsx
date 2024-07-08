@@ -45,6 +45,7 @@ function Shop() {
                 preis={product.preis}
                 stichwörter={product.stichWörter}
                 produktbild={product.produktBild}
+                extraClass={"mt-4"}
               />
             </div>
           ))}

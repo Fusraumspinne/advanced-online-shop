@@ -6,6 +6,7 @@ import MagicButton from './ui/Button'
 import Input from './ui/Input'
 import Textarea from './ui/Textarea'
 import { useSession } from "next-auth/react"
+import Productcard from './ui/Productcard'
 
 function Productcreation() {
     const [produktName, setProduktName] = useState("")
@@ -71,18 +72,30 @@ function Productcreation() {
         <div>
             <Navigationbar />
 
-            <div style={{ marginTop: "75px" }}>
-                <form onSubmit={handleSubmit}>
-                    <Input placeholder={"Produktname"} type={"text"} onChange={(e) => setProduktName(e.target.value)} />
-                    <Textarea placeholder={"Stichwörter"} rows={5} onChange={(e) => setStichWörter(e.target.value)} />
-                    <Input placeholder={"Produktbild"} type={"file"} disabled={true} />
-                    <Input placeholder={"Preis"} type={"text"} onChange={(e) => setPreis(e.target.value)} />
-                    <Textarea placeholder={"Ausführliche Beschreibung"} rows={5} onChange={(e) => setAusführlicheBeschreibung(e.target.value)} />
-                    <Input placeholder={"Lieferzeit"} type={"text"} onChange={(e) => setLieferzeit(e.target.value)} />
-                    <Input placeholder={"Vorrat"} type={"text"} onChange={(e) => setVorrat(e.target.value)} />
+            <div style={{ marginTop: "56px" }}>
+                <div className='row mx-4'>
+                    <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
+                        <form onSubmit={handleSubmit}>
+                            <Input placeholder={"Bastelschere"} type={"text"} onChange={(e) => setProduktName(e.target.value)} isLabel={true} contentLabel={"Produktname"} extraClass={"mt-4"}/>
+                            <Textarea placeholder={"Scharf Basteln Schere Kinder Werkzeug"} rows={5} onChange={(e) => setStichWörter(e.target.value)} isLabel={true} contentLabel={"Stichwörter"} extraClass={"mt-4"}/>
+                            <Input placeholder={"Produktbild"} type={"file"} disabled={true} isLabel={true} contentLabel={"Bild"} extraClass={"mt-4"}/>
+                            <Input placeholder={"8.99"} type={"text"} onChange={(e) => setPreis(e.target.value)} isLabel={true} contentLabel={"Preis"} extraClass={"mt-4"}/>
+                            <Textarea placeholder={"Aus hartem Stahl gefertigt um Jahre mit Kindern und harter Benutzung stand halten zu können."} rows={5} onChange={(e) => setAusführlicheBeschreibung(e.target.value)} isLabel={true} contentLabel={"Ausführliche Beschreibung"} extraClass={"mt-4"}/>
+                            <Input placeholder={"1-2 Werktage"} type={"text"} onChange={(e) => setLieferzeit(e.target.value)} isLabel={true} contentLabel={"Lieferzeit"} extraClass={"mt-4"}/>
+                            <Input placeholder={"23"} type={"text"} onChange={(e) => setVorrat(e.target.value)} isLabel={true} contentLabel={"Vorrat"} extraClass={"mt-4"}/>
 
-                    <MagicButton type={"submit"} content={"Create"} />
-                </form>
+                            <MagicButton type={"submit"} content={"Create"} extraClass={"mt-4 mb-4 full_width-_button"}/>
+                        </form>
+                    </div>
+                    <div className='col-6 d-flex justify-content-center align-items-center'>
+                        <Productcard
+                            produktname={produktName}
+                            preis={preis}
+                            stichwörter={stichWörter}
+                            produktbild={produktBild}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     )
