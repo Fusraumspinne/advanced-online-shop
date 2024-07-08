@@ -4,7 +4,7 @@ function Input({ type, placeholder, disabled, onChange, isLabel, contentLabel, e
   return (
     <div className={extraClass}>
       {isLabel && (
-        <label for="input" class="form-label fs-5">{contentLabel}</label>
+        <label className="form-label fs-5">{contentLabel}</label>
       )}
       <div className="input-group">
         <input id='input' type={type} className="form-control" placeholder={placeholder} disabled={disabled} onChange={onChange}/>

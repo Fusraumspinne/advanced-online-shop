@@ -2,8 +2,9 @@
 
 import Navigationbar from "./ui/Navbar"
 import { useEffect, useState } from "react"
-import Image from 'next/image';
 import Productcard from "./ui/Productcard";
+import Link from "next/link";
+import React from "react";
 
 function Shop() {
   const [products, setProducts] = useState([])
@@ -40,13 +41,15 @@ function Shop() {
         <div className="product_container" style={{ marginTop: "75px" }}>
           {products.map((product) => (
             <div key={product._id}>
-              <Productcard
-                produktname={product.produktName}
-                preis={product.preis}
-                stichwörter={product.stichWörter}
-                produktbild={product.produktBild}
-                extraClass={"mt-4"}
-              />
+              <Link className="text-decoration-none" href={`/product/${product._id}`}>
+                <Productcard
+                  produktname={product.produktName}
+                  preis={product.preis}
+                  stichwörter={product.stichWörter}
+                  produktbild={product.produktBild}
+                  extraClass={"mt-4"}
+                />
+              </Link>
             </div>
           ))}
         </div>

@@ -5,7 +5,7 @@ function Textarea({placeholder, rows, onChange, isLabel, contentLabel, extraClas
   return (
     <div className={extraClass}>
       {isLabel && (
-        <label for="textarea" class="form-label fs-5">{contentLabel}</label>
+        <label className="form-label fs-5">{contentLabel}</label>
       )}
       <Form.Control
         as="textarea"  
