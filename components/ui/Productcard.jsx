@@ -8,9 +8,15 @@ function Productcard({ produktname, preis, stichwörter, produktbild }) {
                 <Image style={{ borderRadius: '0.375rem 0.375rem 0 0'}} src={produktbild} alt={produktbild} width={250} height={250} />
             </div>
             <div className="card-body">
-                <h1 className="card-title fs-5">{produktname}</h1>
-                <p className='card-text'>{preis}€</p>
-                <p className="card-text">{stichwörter}</p>
+                <div style={{height: "50px"}}>
+                    <h1 className="card-title fs-5">{produktname}</h1>
+                </div>
+                <div className='mt-2' style={{height: "25px", overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2}}>
+                    <p className='card-text'>{preis}€</p>
+                </div>
+                <div className='mt-2' style={{height: "75px", overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 3 }}>
+                    <p className="card-text">{stichwörter}</p>
+                </div>
             </div>
         </div>
     )
