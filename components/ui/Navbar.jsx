@@ -4,7 +4,7 @@ import { signOut } from "next-auth/react"
 
 function Navigationbar() {
     return (
-        <Navbar expand="lg" className="bg-primary">
+        <Navbar expand="lg" className="bg-primary" fixed="top">
             <Container fluid>
                 <Navbar.Brand className="text-light fw-bold" href="/">Schnäppchen Safari</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />

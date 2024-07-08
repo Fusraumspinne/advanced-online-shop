@@ -52,6 +52,13 @@ function Productcreation() {
                 console.log("Product created")
                 const form = e.target
                 form.reset()
+
+                setProduktName("");
+                setStichWörter("");
+                setPreis("");
+                setAusführlicheBeschreibung("");
+                setLieferzeit("");
+                setVorrat("");
             } else {
                 console.log("Creating product failed")
             }
@@ -64,7 +71,7 @@ function Productcreation() {
         <div>
             <Navigationbar />
 
-            <div>
+            <div style={{ marginTop: "75px" }}>
                 <form onSubmit={handleSubmit}>
                     <Input placeholder={"Produktname"} type={"text"} onChange={(e) => setProduktName(e.target.value)} />
                     <Textarea placeholder={"Stichwörter"} rows={5} onChange={(e) => setStichWörter(e.target.value)} />
