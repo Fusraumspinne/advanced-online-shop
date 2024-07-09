@@ -119,7 +119,7 @@ function Product({ params }) {
 
             <Input extraClass={"mb-3"} type={"number"} placeholder={"Anzahl"} onChange={(e) => setAnzahl(e.target.value)}/>
 
-            <MagicButton content={"In den Warenkorb"} funktion={addWarenkorb} />
+            <MagicButton content={"In den Warenkorb"} funktion={addWarenkorb} extraClass={"full_width_button"}/>
           </div>
         </div>
       </div>

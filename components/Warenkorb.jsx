@@ -49,6 +49,28 @@ function Warenkorb() {
     console.log(warenkorb)
   }, [warenkorb])
 
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await fetch("/api/deleteWarenkorbItem", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          _id: itemId
+        })
+      });
+
+      if (response.ok) {
+        setWarenkorb(warenkorb.filter(item => item._id !== itemId));
+      } else {
+        console.error("Fehler beim Abrufen des Produktes:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fehler beim Abrufen des Produktes:", error);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
   }
@@ -77,7 +99,7 @@ function Warenkorb() {
                     <td><Link href={`/product/${item.produkt}`}>{item.produktName}</Link></td>
                     <td>{item.anzahl}</td>
                     <td>{item.preis}</td>
-                    <td><DeleteIcon/></td>
+                    <td><DeleteIcon onClick={() => handleDelete(item._id)} /></td>
                   </tr>
                 ))}
               </tbody>
