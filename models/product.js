@@ -27,7 +27,7 @@ const productSchema = new Schema(
             repuired: true
         },
         vorrat: {
-            type: String,
+            type: Number,
             repuired: true
         },
         verkäufer: {

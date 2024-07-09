@@ -16,7 +16,7 @@ function Productcreation() {
     const [preis, setPreis] = useState("")
     const [ausführlicheBeschreibung, setAusführlicheBeschreibung] = useState("")
     const [lieferzeit, setLieferzeit] = useState("")
-    const [vorrat, setVorrat] = useState("")
+    const [vorrat, setVorrat] = useState()
     const [verkäufer, setVerkäufer] = useState("")
     const [vorschauCard, setVoraschauCard] = useState(true)
 
@@ -61,7 +61,7 @@ function Productcreation() {
                 setPreis("");
                 setAusführlicheBeschreibung("");
                 setLieferzeit("");
-                setVorrat("");
+                setVorrat();
             } else {
                 console.log("Creating product failed")
             }
