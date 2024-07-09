@@ -39,9 +39,11 @@ function Warenkorb() {
 
   useEffect(() => {
     setEmail(session?.user?.email)
-
-    fetchWarenkorb()
   }, [session])
+  
+  useEffect(() => {
+    fetchWarenkorb()
+  }, [email])
 
   useEffect(() => {
     console.log(warenkorb)

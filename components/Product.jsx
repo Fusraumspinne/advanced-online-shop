@@ -5,9 +5,13 @@ import Navigationbar from './ui/Navbar'
 import Image from 'next/image'
 import MagicButton from './ui/Button'
 import { useSession } from "next-auth/react"
+import Input from './ui/Input'
+import { useRouter } from 'next/navigation'
 
 function Product({ params }) {
   const { data: session } = useSession()
+
+  const router = useRouter()
 
   const [productObject, setProductObject] = useState([])
 
@@ -50,7 +54,6 @@ function Product({ params }) {
   useEffect(() => {
     setEmail(session?.user?.email)
     setProdukt(params.id)
-    setAnzahl(1)
     setPreis(productObject.preis)
     setProduktName(productObject.produktName)
     setLieferzeit(productObject.lieferzeit)
@@ -83,6 +86,8 @@ function Product({ params }) {
 
       if (res.ok) {
         console.log("Product added to warenkorb")
+
+        router.push("/warenkorb")
       } else {
         console.log("Creating product failed")
       }
@@ -111,6 +116,8 @@ function Product({ params }) {
             <p>Preis: {productObject.preis}€</p>
             <p>Lieferzeit: {productObject.lieferzeit} Werktage</p>
             <p>Vorrat: {productObject.vorrat} Stück</p>
+
+            <Input extraClass={"mb-3"} type={"number"} placeholder={"Anzahl"} onChange={(e) => setAnzahl(e.target.value)}/>
 
             <MagicButton content={"In den Warenkorb"} funktion={addWarenkorb} />
           </div>
