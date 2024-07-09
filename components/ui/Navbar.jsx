@@ -15,7 +15,7 @@ function Navigationbar() {
                         navbarScroll
                     >
                     <Nav.Link className="text-light" href="/">Shop</Nav.Link>
-                    <Nav.Link className="text-light" href="/">Warenkorb</Nav.Link>
+                    <Nav.Link className="text-light" href="/warenkorb">Warenkorb</Nav.Link>
                     <Nav.Link className="text-light" href="/creatordashboard">Creatordashboard</Nav.Link>
                     <Nav.Link className="text-light" href="/">Support</Nav.Link>
                     <Nav.Link className="text-light" href="/">Account</Nav.Link>

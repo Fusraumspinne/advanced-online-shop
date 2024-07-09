@@ -76,7 +76,7 @@ function Productcreation() {
 
             <div style={{ marginTop: "56px" }}>
                 <div className='row mx-4'>
-                    <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
+                    <div className='col-6' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
                         <form onSubmit={handleSubmit}>
                             <Input placeholder={"Bastelschere"} type={"text"} onChange={(e) => setProduktName(e.target.value)} isLabel={true} contentLabel={"Produktname"} extraClass={"mt-4"} />
                             <Textarea placeholder={"Scharf Basteln Schere Kinder Werkzeug"} rows={5} onChange={(e) => setStichWörter(e.target.value)} isLabel={true} contentLabel={"Stichwörter"} extraClass={"mt-4"} />
