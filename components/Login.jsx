@@ -49,7 +49,7 @@ function Login(){
 
           {error && <div>{error}</div>}
 
-          <Link href={"/signup"}>Don't have an account? Sign Up</Link>
+          <Link href={"/signup"}>{`Don't have an account? Sign Up`}</Link>
         </form>
       </div>
     </div>
