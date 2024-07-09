@@ -7,6 +7,7 @@ import Input from './ui/Input'
 import Textarea from './ui/Textarea'
 import { useSession } from "next-auth/react"
 import Productcard from './ui/Productcard'
+import Image from 'next/image'
 
 function Productcreation() {
     const [produktName, setProduktName] = useState("")
@@ -17,6 +18,7 @@ function Productcreation() {
     const [lieferzeit, setLieferzeit] = useState("")
     const [vorrat, setVorrat] = useState("")
     const [verkäufer, setVerkäufer] = useState("")
+    const [vorschauCard, setVoraschauCard] = useState(true)
 
     const { data: session } = useSession()
 
@@ -76,24 +78,64 @@ function Productcreation() {
                 <div className='row mx-4'>
                     <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
                         <form onSubmit={handleSubmit}>
-                            <Input placeholder={"Bastelschere"} type={"text"} onChange={(e) => setProduktName(e.target.value)} isLabel={true} contentLabel={"Produktname"} extraClass={"mt-4"}/>
-                            <Textarea placeholder={"Scharf Basteln Schere Kinder Werkzeug"} rows={5} onChange={(e) => setStichWörter(e.target.value)} isLabel={true} contentLabel={"Stichwörter"} extraClass={"mt-4"}/>
-                            <Input placeholder={"Produktbild"} type={"file"} disabled={true} isLabel={true} contentLabel={"Bild"} extraClass={"mt-4"}/>
-                            <Input placeholder={"8.99"} type={"text"} onChange={(e) => setPreis(e.target.value)} isLabel={true} contentLabel={"Preis"} extraClass={"mt-4"}/>
-                            <Textarea placeholder={"Aus hartem Stahl gefertigt um Jahre mit Kindern und harter Benutzung stand halten zu können."} rows={5} onChange={(e) => setAusführlicheBeschreibung(e.target.value)} isLabel={true} contentLabel={"Ausführliche Beschreibung"} extraClass={"mt-4"}/>
-                            <Input placeholder={"1-2 Werktage"} type={"text"} onChange={(e) => setLieferzeit(e.target.value)} isLabel={true} contentLabel={"Lieferzeit"} extraClass={"mt-4"}/>
-                            <Input placeholder={"23"} type={"text"} onChange={(e) => setVorrat(e.target.value)} isLabel={true} contentLabel={"Vorrat"} extraClass={"mt-4"}/>
+                            <Input placeholder={"Bastelschere"} type={"text"} onChange={(e) => setProduktName(e.target.value)} isLabel={true} contentLabel={"Produktname"} extraClass={"mt-4"} />
+                            <Textarea placeholder={"Scharf Basteln Schere Kinder Werkzeug"} rows={5} onChange={(e) => setStichWörter(e.target.value)} isLabel={true} contentLabel={"Stichwörter"} extraClass={"mt-4"} />
+                            <Input placeholder={"Produktbild"} type={"file"} disabled={true} isLabel={true} contentLabel={"Bild"} extraClass={"mt-4"} />
+                            <Input placeholder={"8.99"} type={"text"} onChange={(e) => setPreis(e.target.value)} isLabel={true} contentLabel={"Preis"} extraClass={"mt-4"} />
+                            <Textarea placeholder={"Aus hartem Stahl gefertigt um Jahre mit Kindern und harter Benutzung stand halten zu können."} rows={5} onChange={(e) => setAusführlicheBeschreibung(e.target.value)} isLabel={true} contentLabel={"Ausführliche Beschreibung"} extraClass={"mt-4"} />
+                            <Input placeholder={"1-2"} type={"text"} onChange={(e) => setLieferzeit(e.target.value)} isLabel={true} contentLabel={"Lieferzeit"} extraClass={"mt-4"} />
+                            <Input placeholder={"23"} type={"text"} onChange={(e) => setVorrat(e.target.value)} isLabel={true} contentLabel={"Vorrat"} extraClass={"mt-4"} />
 
-                            <MagicButton type={"submit"} content={"Create"} extraClass={"mt-4 mb-4 full_width-_button"}/>
+                            <div className='row'>
+                                <div className='col-9'>
+                                    <MagicButton type={"submit"} content={"Create"} extraClass={"mt-4 mb-4 full_width_button"} />
+                                </div>
+
+                                <div className='col-3'>
+                                    {vorschauCard ? (
+                                        <MagicButton content={"Seitenvorschau"} extraClass={"mt-4 mb-4 full_width_button"} funktion={() => setVoraschauCard(false)} />
+                                    ) : (
+                                        <MagicButton content={"Cardvorschau"} extraClass={"mt-4 mb-4 full_width_button"} funktion={() => setVoraschauCard(true)} />
+                                    )}
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div className='col-6 d-flex justify-content-center align-items-center'>
-                        <Productcard
-                            produktname={produktName}
-                            preis={preis}
-                            stichwörter={stichWörter}
-                            produktbild={produktBild}
-                        />
+                        {vorschauCard ? (
+                            <div>
+                                <Productcard
+                                    produktname={produktName}
+                                    preis={preis}
+                                    stichwörter={stichWörter}
+                                    produktbild={produktBild}
+                                />
+                            </div>
+                        ) : (
+                            <div className='card py-4'>
+                                <div className='row mx-4'>
+                                    <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
+                                        <div className='d-flex justify-content-center'>
+                                            <Image src={produktBild} alt={produktBild} width={200} height={200} />
+                                        </div>
+
+                                        <p style={{ fontSize: "18px" }}>{ausführlicheBeschreibung}</p>
+                                    </div>
+                                    <div className='col-6'>
+                                        <h1 className='fs-2'>{produktName}</h1>
+                                        <p className='fs-4'>{stichWörter}</p>
+
+                                        <p>Verkäufer: {verkäufer}</p>
+                                        <p>Preis: {preis ? `${preis}€` : ''}</p>
+                                        <p>Lieferzeit: {lieferzeit ? `${lieferzeit} Werktage` : ''}</p>
+                                        <p>Vorrat: {vorrat ? `${vorrat} Stück` : ''}</p>
+
+                                        <MagicButton content={"In den Warenkorb"} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </div>
