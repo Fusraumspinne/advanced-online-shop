@@ -103,9 +103,9 @@ function Warenkorb() {
     <div>
       <Navigationbar />
 
-      <div style={{ marginTop: "56px" }}>
+      <div style={{ marginTop: "75px" }}>
         <div className='row mx-4'>
-          <div className='col-8' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
+          <div className='col-8 card px-0' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
             <table className="table">
               <thead>
                 <tr>
@@ -123,7 +123,7 @@ function Warenkorb() {
                     <td><Link href={`/product/${item.produkt}`}>{item.produktName}</Link></td>
                     <td>{item.anzahl}</td>
                     <td>{item.preis ? `${item.preis}€` : ''}</td>
-                    <td><DeleteIcon onClick={() => handleDelete(item._id)} /></td>
+                    <td><DeleteIcon className='curser_pointer' onClick={() => handleDelete(item._id)} /></td>
                   </tr>
                 ))}
               </tbody>

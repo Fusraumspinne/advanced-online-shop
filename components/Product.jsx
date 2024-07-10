@@ -99,8 +99,8 @@ function Product({ params }) {
   return (
     <div>
       <Navigationbar />
-      <div style={{ marginTop: "75px" }}>
-        <div className='row mx-4'>
+      <div className='card mx-3' style={{ marginTop: "75px" }}>
+        <div className='row mx-4 mt-3'>
           <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
             <div className='d-flex justify-content-center'>
               <Image src={productObject.produktBild} alt={productObject.produktBild} width={500} height={500} />

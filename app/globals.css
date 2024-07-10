@@ -24,4 +24,8 @@
 
 .full_width_button {
     width: 100%;
-  }
+}
+
+.curser_pointer{
+    cursor: pointer;
+}
