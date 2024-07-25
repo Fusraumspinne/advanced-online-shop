@@ -24,7 +24,7 @@ function Product({ params }) {
   const [vorrat, setVorrat] = useState()
   const [produktBild, setProduktBild] = useState("")
 
-  const fetchProducts = async () => {
+  const fetchProduct = async () => {
     try {
       const response = await fetch("/api/getProduct", {
         method: "POST",
@@ -48,7 +48,7 @@ function Product({ params }) {
   }
 
   useEffect(() => {
-    fetchProducts()
+    fetchProduct()
   }, [])
 
   useEffect(() => {

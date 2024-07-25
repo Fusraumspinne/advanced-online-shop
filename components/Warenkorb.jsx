@@ -12,14 +12,18 @@ import Input from './ui/Input'
 function Warenkorb() {
   const { data: session } = useSession()
 
+  const [user, setUser] = useState()
+
   const [email, setEmail] = useState("")
   const [warenkorb, setWarenkorb] = useState([])
+  const [guthaben, setGuthaben] = useState(0)
   const [adresse, setAdresse] = useState("")
 
   const [productPrice, setProductPrice] = useState(0)
   const [totalItems, setTotalItems] = useState(0)
   const [lieferKosten, setLieferKosten] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
+
 
   const fetchWarenkorb = async () => {
     try {
@@ -44,17 +48,50 @@ function Warenkorb() {
     }
   }
 
+  const fetchPayment = async () => {
+    try {
+      const response = await fetch("/api/getPayment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user);
+      } else {
+        console.error("Fehler beim Abrufen des Produktes:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Fehler beim Abrufen des Produktes:", error);
+    }
+  }
+
   useEffect(() => {
     setEmail(session?.user?.email)
   }, [session])
 
   useEffect(() => {
     fetchWarenkorb()
+    fetchPayment()
   }, [email])
 
   useEffect(() => {
-    console.log(warenkorb)
-  }, [warenkorb])
+    if (user && user.adresse && user.adresse !== "null") {
+      setAdresse(user.adresse);
+    } else {
+      setAdresse('');
+    }
+
+    if(user && user.guthaben){
+      const formattedGuthaben = parseFloat(user.guthaben.replace(/\./g, '').replace(',', '.'));
+      setGuthaben(formattedGuthaben)
+    }
+  }, [user]);
 
   useEffect(() => {
     const total = warenkorb.reduce((acc, item) => {
@@ -131,12 +168,18 @@ function Warenkorb() {
           </div>
           <div className='col-4'>
             <form onSubmit={handleSubmit}>
+              <p className='fs-5'>Bestellbeschreibung</p>
+
               <p>Produktepreis: {productPrice ? productPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
               <p>Anzahl: {totalItems ? `${totalItems} Produkte` : '0 Produkte'}</p>
               <p>Lieferkosten: {lieferKosten ? lieferKosten.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
               <p>Gesamtpreis: {totalPrice ? totalPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
 
-              <Input isLabel={true} contentLabel={"Adresse"} placeholder={"Bülserstraße 80"} onChange={(e) => setAdresse(e.target.value)} />
+              <p className='fs-5'>aktuelles Guthaben</p>
+
+              <p>{guthaben ? guthaben.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
+
+              <Input isLabel={true} contentLabel={"Adresse"} placeholder={"Bülserstraße 80"} onChange={(e) => setAdresse(e.target.value)} value={adresse}/>
 
               <MagicButton content={"Bezahlen"} type={"submit"} extraClass={"full_width_button mt-3"} />
             </form>

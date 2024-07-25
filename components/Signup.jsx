@@ -10,6 +10,8 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [guthaben, setGuthaben] = useState("0")
+  const [adresse, setAdresse] = useState("null")
   const [error, setError] = useState("");
 
   const router = useRouter()
@@ -44,7 +46,7 @@ function Signup() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name, email, password
+          name, email, password, guthaben, adresse
         })
       })
 

@@ -13,6 +13,14 @@ const userSchema = new Schema(
         password: {
             type: String,
             repuired: true
+        },
+        guthaben: {
+            type: String, 
+            required: true
+        },
+        adresse: {
+            type: String,
+            required: true
         }
     },
     { timestamps: true }
