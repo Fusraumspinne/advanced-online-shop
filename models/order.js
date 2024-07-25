@@ -10,24 +10,28 @@ const orderSchema = new Schema(
             type: String,
             required: true
         },
-        productPrice : {
+        product: {
             type: String,
             required: true
-        }, 
+        },
+        productName: {
+            type: String,
+            required: true
+        },
         totalItems: {
             type: String,
             required: true
-        }, 
-        lieferKosten: {
+        },
+        lieferZeit: {
             type: String,
             required: true
-        }, 
-        totalPrice: {
-            type: String, 
+        },
+        datum: {
+            type: String,
             required: true
         },
-        warenkorb: {
-            type: Array,
+        status: {
+            type: String,
             required: true
         }
     },

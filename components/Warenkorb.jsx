@@ -20,6 +20,9 @@ function Warenkorb() {
   const [formattedGuthaben, setFormattedGuthaben] = useState(0)
   const [adresse, setAdresse] = useState("")
 
+  const [status, setStatus] = useState("Bestellt")
+  const [datum, setDatum] = useState("")
+
   const [productPrice, setProductPrice] = useState(0)
   const [totalItems, setTotalItems] = useState(0)
   const [lieferKosten, setLieferKosten] = useState(0)
@@ -75,6 +78,10 @@ function Warenkorb() {
   }
 
   useEffect(() => {
+    getDate()
+  })
+
+  useEffect(() => {
     setEmail(session?.user?.email)
   }, [session])
 
@@ -112,6 +119,8 @@ function Warenkorb() {
     setLieferKosten(total.items * 4)
 
     setTotalPrice(total.items * 4 + total.price)
+
+    console.log(warenkorb)
   }, [warenkorb])
 
   const handleDelete = async (itemId) => {
@@ -136,6 +145,15 @@ function Warenkorb() {
     }
   }
 
+  const getDate = () => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    const currentDateInGermany = `${day}.${month}.${year}`;
+    setDatum(currentDateInGermany);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -149,33 +167,34 @@ function Warenkorb() {
       }
     }
 
-    try {
-      const res = await fetch("/api/createOrder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          adresse,
-          productPrice,
-          totalItems,
-          lieferKosten,
-          totalPrice,
-          warenkorb
-        })
-      });
+    for (const item of warenkorb) {
+      try {
+        const res = await fetch("/api/createOrder", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            adresse,
+            product: item._id,
+            productName: item.produktName,
+            totalItems: item.anzahl,
+            lieferZeit: item.lieferzeit,
+            datum,
+            status
+          })
+        });
 
-      if (res.ok) {
-        console.log("Bestellung erstellt");
-
-        handlePayment()
-        handleClear()
-      } else {
-        console.log("Fehler beim erstelle der Bestellung");
+        if (!res.ok) {
+          console.log(`Fehler beim Erstellen der Bestellung für Produkt: ${item.produktName}`);
+        }
+      } catch (error) {
+        console.log(`Fehler beim Erstellen der Bestellung für Produkt: ${item.produktName}: `, error);
       }
-    } catch (error) {
-      console.log("Fehler beim erstelle der Bestellung: ", error);
-    }
-  };
+    };
+
+    handleClear()
+    handlePayment()
+  }
 
   const handlePayment = async () => {
     const newGuthaben = guthaben - totalPrice;
