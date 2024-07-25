@@ -29,3 +29,8 @@
 .curser_pointer{
     cursor: pointer;
 }
+
+.form_card{
+    width: 350px;
+    margin-top: 100px;
+}

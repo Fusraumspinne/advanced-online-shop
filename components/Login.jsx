@@ -7,15 +7,19 @@ import { useRouter } from 'next/navigation'
 import Input from './ui/Input'
 import MagicButton from './ui/Button'
 
-function Login(){
+function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
 
   const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    if (!email || !password) {
+      alert("Alle Inputfelder werden benötigt")
+      return
+    }
 
     try {
       const res = await signIn("credentials", {
@@ -24,32 +28,34 @@ function Login(){
         redirect: false
       })
 
-      if(res.error){
-        setError("Falsche Logindaten")
+      if (res.error) {
+        alert("Falsche Logindaten")
         return
       }
 
       router.replace("shop")
     } catch (error) {
-
+      alert("Ein Fehler ist aufgetreten: " + error)
     }
   }
 
   return (
-    <div>
-      <div>
-        <h1>Login</h1>
+    <div className='d-flex justify-content-center'>
+      <div className='card form_card'>
+        <h1 className='mt-4 mx-4'>Login</h1>
 
         <form onSubmit={handleSubmit}>
-          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)}/>
+          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} extraClass={"mt-3 mx-4"} />
 
-          <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)}/>
+          <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} extraClass={"mt-3 mx-4"} />
 
-          <MagicButton type={"submit"} content={"Login"} />
+          <div className='mx-4'>
+            <MagicButton type={"submit"} content={"Login"} extraClass={"full_width_button mt-3"} />
+          </div>
 
-          {error && <div>{error}</div>}
-
-          <Link href={"/signup"}>{`Don't have an account? Sign Up`}</Link>
+          <div className='mt-3 mb-4 mx-4'>
+            <Link href={"/signup"}>{`Don't have an account? Sign Up`}</Link>
+          </div>
         </form>
       </div>
     </div>

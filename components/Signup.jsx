@@ -12,7 +12,6 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [guthaben, setGuthaben] = useState("0")
   const [adresse, setAdresse] = useState("null")
-  const [error, setError] = useState("");
 
   const router = useRouter()
 
@@ -20,7 +19,7 @@ function Signup() {
     e.preventDefault()
 
     if (!name || !email || !password) {
-      setError("Alle Inputfelder werden benötigt")
+      alert("Alle Inputfelder werden benötigt")
       return
     }
 
@@ -36,7 +35,7 @@ function Signup() {
       const { user } = await resUserExists.json();
 
       if (user) {
-        setError("Dieser User existiert bereits");
+        alert("Dieser User existiert bereits");
         return;
       }
 
@@ -55,30 +54,31 @@ function Signup() {
         form.reset()
         router.push("/")
       } else {
-        console.log("Fehler beim erstellen eines Accounts")
+        alert("Fehler beim erstellen eines Accounts")
       }
     } catch (error) {
-      console.log("Fehler beim erstellen eines Accounts: ", error)
+     alert("Fehler beim erstellen eines Accounts: ", error)
     }
   };
 
   return (
-    <div>
-      <div>
-        <h1>Sign Up</h1>
+    <div className='d-flex justify-content-center'>
+      <div className='card form_card'>
+        <h1 className='mt-4 mx-4'>Sign Up</h1>
 
         <form onSubmit={handleSubmit}>
-          <Input type={"text"} placeholder={"Username"} onChange={(e) => setName(e.target.value)} />
+          <Input type={"text"} placeholder={"Username"} onChange={(e) => setName(e.target.value)} extraClass={"mt-3 mx-4"} />
 
-          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} />
+          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} extraClass={"mt-3 mx-4"} />
 
-          <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} />
+          <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} extraClass={"mt-3 mx-4"} />
+          <div className='mx-4'>
+            <MagicButton type={"submit"} content={"Sign Up"} extraClass={"full_width_button mt-3"} />
+          </div>
 
-          <MagicButton type={"submit"} content={"Sign Up"} />
-
-          {error && <div>{error}</div>}
-
-          <Link href={"/"}>Already have an account? Login</Link>
+          <div className='mt-3 mb-4 mx-4'>
+            <Link href={"/"}>Already have an account? Login</Link>
+          </div>
         </form>
       </div>
     </div>
