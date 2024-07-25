@@ -25,7 +25,7 @@ function Login(){
       })
 
       if(res.error){
-        setError("Invalid Logininformations")
+        setError("Falsche Logindaten")
         return
       }
 

@@ -19,7 +19,7 @@ function Shop() {
         const data = await response.json();
         setProducts(data.products);
       } else {
-        console.error("Fehler beim Abrufen der Produkte:", response.statusText);
+        console.error("Fehler beim Abrufen der Produkte");
       }
     } catch (error) {
       console.error("Fehler beim Abrufen der Produkte:", error);

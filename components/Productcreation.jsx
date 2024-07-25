@@ -31,7 +31,7 @@ function Productcreation() {
         e.preventDefault()
 
         if (!produktName || !stichWörter || !produktBild || !preis || !ausführlicheBeschreibung || !lieferzeit || !vorrat || !verkäufer) {
-            console.log("Alle Informationen werden benötigt")
+            console.log("Alle Inputfelder werden benötigt")
             return
         }
 
@@ -52,7 +52,7 @@ function Productcreation() {
             })
 
             if (res.ok) {
-                console.log("Product created")
+                console.log("Produkt wurde ersellt")
                 const form = e.target
                 form.reset()
 
@@ -63,10 +63,10 @@ function Productcreation() {
                 setLieferzeit("");
                 setVorrat();
             } else {
-                console.log("Creating product failed")
+                console.log("Fehler beim erstellen eines Produktes")
             }
         } catch (error) {
-            console.log("Error during creating product: ", error)
+            console.log("Fehler beim erstellen eines Produktes: ", error)
         }
     }
 

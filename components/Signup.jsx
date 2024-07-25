@@ -20,7 +20,7 @@ function Signup() {
     e.preventDefault()
 
     if (!name || !email || !password) {
-      setError("All fields are necessary")
+      setError("Alle Inputfelder werden benötigt")
       return
     }
 
@@ -36,7 +36,7 @@ function Signup() {
       const { user } = await resUserExists.json();
 
       if (user) {
-        setError("User already exists.");
+        setError("Dieser User existiert bereits");
         return;
       }
 
@@ -55,10 +55,10 @@ function Signup() {
         form.reset()
         router.push("/")
       } else {
-        console.log("User registration failed")
+        console.log("Fehler beim erstellen eines Accounts")
       }
     } catch (error) {
-      console.log("Error during regsitration: ", error)
+      console.log("Fehler beim erstellen eines Accounts: ", error)
     }
   };
 

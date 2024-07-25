@@ -8,8 +8,8 @@ export async function POST(req) {
         await connectMongoDB()
         await Warenkorb.create({ email, produkt, anzahl, preis, produktName, lieferzeit, vorrat, produktBild })
 
-        return NextResponse.json({ message: "Product created" }, { status: 201 });
+        return NextResponse.json({ message: "Produkt wurde zum Warenkorb hinzugefügt" }, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ message: "An error occurred while creating product" }, { status: 500 });
+        return NextResponse.json({ message: "EinFehler ist beim hinzufüge eines Produktes zum Warenkorb aufgetreten" }, { status: 500 });
     }
 }

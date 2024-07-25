@@ -40,10 +40,10 @@ function Product({ params }) {
         const data = await response.json();
         setProductObject(data.product);
       } else {
-        console.error("Fehler beim Abrufen des Produktes:", response.statusText);
+        console.error("Fehler beim Abrufen des Produktes");
       }
     } catch (error) {
-      console.error("Fehler beim Abrufen des Produktes:", error);
+      console.error("Fehler beim Abrufen des Produktes: ", error);
     }
   }
 
@@ -64,7 +64,7 @@ function Product({ params }) {
 
   const addWarenkorb = async () => {
     if (!email || !produkt || !anzahl || !preis || !produktName || !lieferzeit || !vorrat || !produktBild) {
-      console.log("Alle Informationen werden benötigt")
+      console.log("Alle Inputfelder werden benötigt")
       return
     }
 
@@ -85,14 +85,14 @@ function Product({ params }) {
       })
 
       if (res.ok) {
-        console.log("Product added to warenkorb")
+        console.log("Produkt wurde zum Warenkorb hinzugefügt")
 
         router.push("/warenkorb")
       } else {
-        console.log("Creating product failed")
+        console.log("Fehler beim hinzufügen des Produktes in den Warenkorb")
       }
     } catch (error) {
-      console.log("Error during creating product: ", error)
+      console.log("Fehler beim hinzufügen des Produktes in den Warenkorb: ", error)
     }
   }
 

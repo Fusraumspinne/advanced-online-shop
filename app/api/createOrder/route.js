@@ -8,8 +8,8 @@ export async function POST(req) {
         await connectMongoDB()
         await Order.create({ email, adresse, productPrice, totalItems, lieferKosten, totalPrice, warenkorb })
 
-        return NextResponse.json({ message: "Product created" }, { status: 201 });
+        return NextResponse.json({ message: "Bestellung wurde erstellt" }, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ message: "An error occurred while creating product" },{ status: 500 });
+        return NextResponse.json({ message: "Fehler beim erstellen einer Bestellung" },{ status: 500 });
     }
 }

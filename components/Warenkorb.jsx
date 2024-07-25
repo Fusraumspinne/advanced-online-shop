@@ -44,10 +44,10 @@ function Warenkorb() {
         const data = await response.json();
         setWarenkorb(data.warenkorb);
       } else {
-        console.error("Fehler beim Abrufen des Produktes:", response.statusText);
+        console.error("Fehler beim Abrufen des Warenkorbes");
       }
     } catch (error) {
-      console.error("Fehler beim Abrufen des Produktes:", error);
+      console.error("Fehler beim Abrufen des Warenkorbes: ", error);
     }
   }
 
@@ -67,10 +67,10 @@ function Warenkorb() {
         const data = await response.json();
         setUser(data.user);
       } else {
-        console.error("Fehler beim Abrufen des Produktes:", response.statusText);
+        console.error("Fehler beim Abrufen der Paymentdaten");
       }
     } catch (error) {
-      console.error("Fehler beim Abrufen des Produktes:", error);
+      console.error("Fehler beim Abrufen der Paymentdaten: ", error);
     }
   }
 

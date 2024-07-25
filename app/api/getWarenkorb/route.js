@@ -10,6 +10,6 @@ export async function POST(req) {
         return NextResponse.json({ warenkorb });
     } catch (error) {
         console.log(error);
-        return NextResponse.json({ message: "Ein Fehler ist beim Abrufen des Produktes aufgetreten" });
+        return NextResponse.json({ message: "Ein Fehler ist beim Abrufen des Warenkobs aufgetreten" });
     }
 }

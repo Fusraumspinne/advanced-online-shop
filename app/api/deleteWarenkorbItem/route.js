@@ -8,8 +8,8 @@ export async function POST(req) {
         await connectMongoDB()
         await Warenkorb.deleteOne({ _id })
 
-        return NextResponse.json({ message: "Product created" }, { status: 201 });
+        return NextResponse.json({ message: "Warenkorbitem wurde gelöscht" }, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ message: "An error occurred while creating product" },{ status: 500 });
+        return NextResponse.json({ message: "Ein Fehler ist beim löschen eines Warenkobitems aufgetreten" },{ status: 500 });
     }
 }
