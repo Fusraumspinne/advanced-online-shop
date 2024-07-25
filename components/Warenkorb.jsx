@@ -139,11 +139,6 @@ function Warenkorb() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(guthaben);
-    console.log(totalPrice);
-
-    const newGuthaben = guthaben - totalPrice;
-
     if (adresse === "") {
       setError("Keine Adresse angegeben");
       return;
@@ -172,35 +167,8 @@ function Warenkorb() {
       if (res.ok) {
         console.log("Bestellung erstellt");
 
-        setGuthaben(newGuthaben);
-
-        try {
-          const guthabenString = newGuthaben.toString().replace('.', ',');
-          console.log(guthabenString);
-
-          const response = await fetch("/api/updatePayment", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email,
-              guthaben: guthabenString,
-              adresse
-            }),
-          });
-
-          if (response.ok) {
-            console.log("Bezahlung war erfolgreich");
-
-            const newFormattedGuthaben = parseFloat(newGuthaben.toString().replace(/\./g, '').replace(',', '.'));
-            setFormattedGuthaben(newFormattedGuthaben)
-          } else {
-            console.error("Fehler bei der Bezahlung");
-          }
-        } catch (error) {
-          console.error("Fehler bei der Bezahlung: ", error);
-        }
+        handlePayment()
+        handleClear()
       } else {
         console.log("Fehler beim erstelle der Bestellung");
       }
@@ -208,6 +176,63 @@ function Warenkorb() {
       console.log("Fehler beim erstelle der Bestellung: ", error);
     }
   };
+
+  const handlePayment = async () => {
+    const newGuthaben = guthaben - totalPrice;
+
+    try {
+      const guthabenString = newGuthaben.toString().replace('.', ',');
+      console.log(guthabenString);
+
+      const response = await fetch("/api/updatePayment", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          guthaben: guthabenString,
+          adresse
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Bezahlung war erfolgreich");
+
+        setGuthaben(newGuthaben);
+
+        const newFormattedGuthaben = parseFloat(newGuthaben.toString().replace(/\./g, '').replace(',', '.'));
+        setFormattedGuthaben(newFormattedGuthaben)
+      } else {
+        console.error("Fehler bei der Bezahlung");
+      }
+    } catch (error) {
+      console.error("Fehler bei der Bezahlung: ", error);
+    }
+  }
+
+  const handleClear = async () => {
+    try {
+      const response = await fetch("/api/clearWarenkorb", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email
+        })
+      });
+
+      if (response.ok) {
+        setWarenkorb([]);
+        console.log("Alle Produkte aus dem Warenkorb wurden gelöscht.");
+      } else {
+        console.error("Fehler beim Löschen der Produkte aus dem Warenkorb");
+      }
+    } catch (error) {
+      console.error("Fehler beim Löschen der Produkte aus dem Warenkorb: ", error);
+    }
+  }
 
   return (
     <div>
