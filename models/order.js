@@ -18,6 +18,10 @@ const orderSchema = new Schema(
             type: String,
             required: true
         },
+        productBild: {
+            type: String,
+            required: true
+        },
         totalItems: {
             type: String,
             required: true

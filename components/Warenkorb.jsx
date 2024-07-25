@@ -177,6 +177,7 @@ function Warenkorb() {
             adresse,
             product: item._id,
             productName: item.produktName,
+            productBild: item.produktBild,
             totalItems: item.anzahl,
             lieferZeit: item.lieferzeit,
             datum,
@@ -260,7 +261,7 @@ function Warenkorb() {
       <div style={{ marginTop: "75px" }}>
         <div className='row mx-4'>
           <div className='col-8 card px-0' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
-            <table className="table">
+            <table className="table mb-0">
               <thead>
                 <tr>
                   <th scope="col">Bild</th>

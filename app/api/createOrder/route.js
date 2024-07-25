@@ -4,9 +4,9 @@ import Order from "@/models/order";
 
 export async function POST(req) {
     try {
-        const { email, adresse, product, productName, totalItems, lieferZeit, datum, status } = await req.json();
+        const { email, adresse, product, productName, productBild, totalItems, lieferZeit, datum, status } = await req.json();
         await connectMongoDB();
-        await Order.create({ email, adresse, product, productName, totalItems, lieferZeit, datum, status });
+        await Order.create({ email, adresse, product, productName, productBild, totalItems, lieferZeit, datum, status });
 
         return NextResponse.json({ message: "Bestellung wurde erstellt" }, { status: 201 });
     } catch (error) {

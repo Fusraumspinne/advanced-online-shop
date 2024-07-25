@@ -1,11 +1,52 @@
 "use client"
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navigationbar from './ui/Navbar'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession } from "next-auth/react"
 
 function Orders() {
+  const { data: session } = useSession()
+
+  const [email, setEmail] = useState("")
+  const [orders, setOrders] = useState([])
+
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch("/api/getOrders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setOrders(data.orders);
+      } else {
+        console.error("Fehler beim Abrufen der Bestellungen");
+      }
+    } catch (error) {
+      console.error("Fehler beim Abrufen der Bestellungen: ", error);
+    }
+  }
+
+  useEffect(() => {
+    setEmail(session?.user?.email)
+  }, [session])
+
+  useEffect(() => {
+    fetchOrders()
+  }, [email])
+
+  useEffect(() => {
+    console.log(orders)
+  })
+
   return (
     <div>
       <Navigationbar />
@@ -13,7 +54,7 @@ function Orders() {
       <div style={{ marginTop: "75px" }}>
         <div className='mx-4'>
           <div className='card px-0' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
-            <table className="table">
+            <table className="table  mb-0">
               <thead>
                 <tr>
                   <th scope="col">Bild</th>
@@ -26,7 +67,17 @@ function Orders() {
                 </tr>
               </thead>
               <tbody>
-                
+                {orders.map(order => (
+                  <tr key={order._id}>
+                    <td><Image src={order.productBild} alt={order.productName} width={25} height={25} /></td>
+                    <td>{order.productName}</td>
+                    <td>{order.totalItems}</td>
+                    <td>{order.lieferZeit}</td>
+                    <td>{order.adresse}</td>
+                    <td>{order.datum}</td>
+                    <td>{order.status}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
