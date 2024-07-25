@@ -17,12 +17,15 @@ function Warenkorb() {
   const [email, setEmail] = useState("")
   const [warenkorb, setWarenkorb] = useState([])
   const [guthaben, setGuthaben] = useState(0)
+  const [formattedGuthaben, setFormattedGuthaben] = useState(0)
   const [adresse, setAdresse] = useState("")
 
   const [productPrice, setProductPrice] = useState(0)
   const [totalItems, setTotalItems] = useState(0)
   const [lieferKosten, setLieferKosten] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
+
+  const [error, setError] = useState("")
 
 
   const fetchWarenkorb = async () => {
@@ -87,9 +90,10 @@ function Warenkorb() {
       setAdresse('');
     }
 
-    if(user && user.guthaben){
+    if (user && user.guthaben) {
       const formattedGuthaben = parseFloat(user.guthaben.replace(/\./g, '').replace(',', '.'));
-      setGuthaben(formattedGuthaben)
+      setFormattedGuthaben(formattedGuthaben)
+      setGuthaben(parseInt(user.guthaben));
     }
   }, [user]);
 
@@ -125,16 +129,85 @@ function Warenkorb() {
       if (response.ok) {
         setWarenkorb(warenkorb.filter(item => item._id !== itemId));
       } else {
-        console.error("Fehler beim Abrufen des Produktes:", response.statusText);
+        console.error("Fehler beim Löschen eines Produktes aus dem Warenkorb");
       }
     } catch (error) {
-      console.error("Fehler beim Abrufen des Produktes:", error);
+      console.error("Fehler beim Löschen eines Produktes aus dem Warenkorb: ", error);
     }
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+
+    console.log(guthaben);
+    console.log(totalPrice);
+
+    const newGuthaben = guthaben - totalPrice;
+
+    if (adresse === "") {
+      setError("Keine Adresse angegeben");
+      return;
+    } else {
+      if (formattedGuthaben < totalPrice) {
+        setError("Guthaben ist kleiner als der Endgültigepreis");
+        return;
+      }
+    }
+
+    try {
+      const res = await fetch("/api/createOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          adresse,
+          productPrice,
+          totalItems,
+          lieferKosten,
+          totalPrice,
+          warenkorb
+        })
+      });
+
+      if (res.ok) {
+        console.log("Bestellung erstellt");
+
+        setGuthaben(newGuthaben);
+
+        try {
+          const guthabenString = newGuthaben.toString().replace('.', ',');
+          console.log(guthabenString);
+
+          const response = await fetch("/api/updatePayment", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              guthaben: guthabenString,
+              adresse
+            }),
+          });
+
+          if (response.ok) {
+            console.log("Bezahlung war erfolgreich");
+
+            const newFormattedGuthaben = parseFloat(newGuthaben.toString().replace(/\./g, '').replace(',', '.'));
+            setFormattedGuthaben(newFormattedGuthaben)
+          } else {
+            console.error("Fehler bei der Bezahlung");
+          }
+        } catch (error) {
+          console.error("Fehler bei der Bezahlung: ", error);
+        }
+      } else {
+        console.log("Fehler beim erstelle der Bestellung");
+      }
+    } catch (error) {
+      console.log("Fehler beim erstelle der Bestellung: ", error);
+    }
+  };
 
   return (
     <div>
@@ -177,14 +250,15 @@ function Warenkorb() {
 
               <p className='fs-5'>aktuelles Guthaben</p>
 
-              <p>{guthaben ? guthaben.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
+              <p>{formattedGuthaben ? formattedGuthaben.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
 
-              <Input isLabel={true} contentLabel={"Adresse"} placeholder={"Bülserstraße 80"} onChange={(e) => setAdresse(e.target.value)} value={adresse}/>
+              <Input isLabel={true} contentLabel={"Adresse"} placeholder={"Bülserstraße 80"} onChange={(e) => setAdresse(e.target.value)} value={adresse} />
 
               <MagicButton content={"Bezahlen"} type={"submit"} extraClass={"full_width_button mt-3"} />
             </form>
           </div>
         </div>
+        <p>{error}</p>
       </div>
     </div>
   )
