@@ -69,7 +69,7 @@ function Orders() {
               <tbody>
                 {orders.map(order => (
                   <tr key={order._id}>
-                    <td><Image src={order.productBild} alt={order.productName} width={25} height={25} className='card'/></td>
+                    <td><Image src={order.productBild} alt={order.productName} width={25} height={25} className='card' style={{height: "25px", width: "25px"}}/></td>
                     <td><Link href={`/product/${order.product}`}>{order.productName}</Link></td>
                     <td>{order.totalItems}</td>
                     <td>{order.lieferZeit}</td>
