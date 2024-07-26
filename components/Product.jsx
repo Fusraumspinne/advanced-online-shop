@@ -102,8 +102,8 @@ function Product({ params }) {
       <div className='card mx-3' style={{ marginTop: "75px" }}>
         <div className='row mx-4 mt-3'>
           <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
-            <div className='d-flex justify-content-center'>
-              <Image src={productObject.produktBild} alt={productObject.produktBild} width={500} height={500} />
+            <div className='d-flex justify-content-center mb-3'>
+              <Image src={productObject.produktBild} alt={productObject.produktBild} width={500} height={500} className='card'/>
             </div>
 
             <p style={{ fontSize: "18px" }}>{productObject.ausführlicheBeschreibung}</p>

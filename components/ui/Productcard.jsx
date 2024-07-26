@@ -5,7 +5,7 @@ function Productcard({ produktname, preis, stichwörter, produktbild, extraClass
     return (
         <div className={`card mx-3 ${extraClass}`}  style={{ width: '18rem', height: '28rem' }}>
             <div style={{ borderRadius: '0.375rem 0.375rem 0 0'}} className='d-flex justify-content-center align-items-center bg-light '>
-                <Image style={{ borderRadius: '0.375rem 0.375rem 0 0'}} src={produktbild} alt={produktbild} width={250} height={250} />
+                <Image style={{ borderRadius: '0.375rem 0.375rem 0 0', width: "100%", maxHeight: "250px", objectFit: "cover" }} src={produktbild} alt={produktbild} width={250} height={250} />
             </div>
             <div className="card-body">
                 <div style={{height: "50px", overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2}}>

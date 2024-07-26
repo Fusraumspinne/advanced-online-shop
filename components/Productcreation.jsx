@@ -25,13 +25,31 @@ function Productcreation() {
     useEffect(() => {
         setVerkäufer(session?.user?.name)
         setProduktBild("/image-placeholder.png")
-    }, [])
+    }, [session])
+
+    const formatPrice = (price) => {
+        const priceNumber = typeof price === 'string' ? parseFloat(price.replace('.', '').replace(',', '.')) : price;
+        return priceNumber.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('€', '').trim();
+    }
+
+    const convertToBase64 = (e) => {
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = () => {
+            setProduktBild(reader.result)
+        }
+        reader.onerror = error => {
+            console.log("Error: " + error)
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (!produktName || !stichWörter || !produktBild || !preis || !ausführlicheBeschreibung || !lieferzeit || !vorrat || !verkäufer) {
             console.log("Alle Inputfelder werden benötigt")
+
+            console.log(produktName, stichWörter, produktBild, preis, ausführlicheBeschreibung, lieferzeit, vorrat, verkäufer)
             return
         }
 
@@ -80,8 +98,8 @@ function Productcreation() {
                         <form onSubmit={handleSubmit}>
                             <Input placeholder={"Bastelschere"} type={"text"} onChange={(e) => setProduktName(e.target.value)} isLabel={true} contentLabel={"Produktname"} extraClass={"mt-4"} />
                             <Textarea placeholder={"Scharf Basteln Schere Kinder Werkzeug"} rows={5} onChange={(e) => setStichWörter(e.target.value)} isLabel={true} contentLabel={"Stichwörter"} extraClass={"mt-4"} />
-                            <Input placeholder={"Produktbild"} type={"file"} disabled={true} isLabel={true} contentLabel={"Bild"} extraClass={"mt-4"} />
-                            <Input placeholder={"8.99"} type={"text"} onChange={(e) => setPreis(e.target.value)} isLabel={true} contentLabel={"Preis"} extraClass={"mt-4"} />
+                            <Input placeholder={"Produktbild"} type={"file"} isLabel={true} contentLabel={"Bild"} extraClass={"mt-4"} onChange={convertToBase64} accept={"image/*"}/>
+                            <Input placeholder={"8,99"} type={"text"} onChange={(e) => setPreis(formatPrice(e.target.value))} isLabel={true} contentLabel={"Preis"} extraClass={"mt-4"} />
                             <Textarea placeholder={"Aus hartem Stahl gefertigt um Jahre mit Kindern und harter Benutzung stand halten zu können."} rows={5} onChange={(e) => setAusführlicheBeschreibung(e.target.value)} isLabel={true} contentLabel={"Ausführliche Beschreibung"} extraClass={"mt-4"} />
                             <Input placeholder={"1-2"} type={"text"} onChange={(e) => setLieferzeit(e.target.value)} isLabel={true} contentLabel={"Lieferzeit"} extraClass={"mt-4"} />
                             <Input placeholder={"23"} type={"text"} onChange={(e) => setVorrat(e.target.value)} isLabel={true} contentLabel={"Vorrat"} extraClass={"mt-4"} />
@@ -115,8 +133,8 @@ function Productcreation() {
                             <div className='card py-4'>
                                 <div className='row mx-4'>
                                     <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
-                                        <div className='d-flex justify-content-center'>
-                                            <Image src={produktBild} alt={produktBild} width={200} height={200} />
+                                        <div className='d-flex justify-content-center' style={{ width: "100%", maxWidth: "200px" }}>
+                                            <Image src={produktBild} alt={produktBild} width={200} height={200} className='card'/>
                                         </div>
 
                                         <p style={{ fontSize: "18px" }}>{ausführlicheBeschreibung}</p>
