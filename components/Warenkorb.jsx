@@ -175,7 +175,7 @@ function Warenkorb() {
           body: JSON.stringify({
             email,
             adresse,
-            product: item._id,
+            product: item.produkt,
             productName: item.produktName,
             productBild: item.produktBild,
             totalItems: item.anzahl,
