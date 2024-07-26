@@ -274,7 +274,7 @@ function Warenkorb() {
               <tbody>
                 {warenkorb.map((item) => (
                   <tr key={item._id}>
-                    <td><Image src={item.produktBild} alt={item.produktName} width={25} height={25} /></td>
+                    <td><Image src={item.produktBild} alt={item.produktName} width={25} height={25} className='card'/></td>
                     <td><Link href={`/product/${item.produkt}`}>{item.produktName}</Link></td>
                     <td>{item.anzahl}</td>
                     <td>{item.preis ? `${item.preis}€` : ''}</td>
