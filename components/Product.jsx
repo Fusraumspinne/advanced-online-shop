@@ -21,7 +21,6 @@ function Product({ params }) {
   const [preis, setPreis] = useState("")
   const [produktName, setProduktName] = useState("")
   const [lieferzeit, setLieferzeit] = useState("")
-  const [vorrat, setVorrat] = useState()
   const [produktBild, setProduktBild] = useState("")
 
   const fetchProduct = async () => {
@@ -57,13 +56,12 @@ function Product({ params }) {
     setPreis(productObject.preis)
     setProduktName(productObject.produktName)
     setLieferzeit(productObject.lieferzeit)
-    setVorrat(productObject.vorrat)
     setProduktBild(productObject.produktBild)
 
   }, [session, productObject, params])
 
   const addWarenkorb = async () => {
-    if (!email || !produkt || !anzahl || !preis || !produktName || !lieferzeit || !vorrat || !produktBild) {
+    if (!email || !produkt || !anzahl || !preis || !produktName || !lieferzeit || !produktBild) {
       console.log("Alle Inputfelder werden benötigt")
       return
     }
@@ -79,7 +77,6 @@ function Product({ params }) {
           preis,
           produktName,
           lieferzeit,
-          vorrat,
           produktBild
         })
       })
@@ -115,7 +112,6 @@ function Product({ params }) {
             <p>Verkäufer: {productObject.verkäufer}</p>
             <p>Preis: {productObject.preis}€</p>
             <p>Lieferzeit: {productObject.lieferzeit} Werktage</p>
-            <p>Vorrat: {productObject.vorrat} Stück</p>
 
             <Input extraClass={"mb-3"} type={"number"} placeholder={"Anzahl"} onChange={(e) => setAnzahl(e.target.value)}/>
 

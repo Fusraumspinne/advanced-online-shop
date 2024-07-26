@@ -26,10 +26,6 @@ const warenkorbSchema = new Schema(
             type: String,
             required: true
         }, 
-        vorrat: {
-            type: Number,
-            required: true
-        },
         produktBild: {
             type: String,
             required: true

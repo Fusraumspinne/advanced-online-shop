@@ -4,9 +4,9 @@ import Product from "@/models/product";
 
 export async function POST(req) {
     try {
-        const { produktName, stichWörter, produktBild, preis, ausführlicheBeschreibung, lieferzeit, vorrat, verkäufer } = await req.json()
+        const { produktName, stichWörter, produktBild, preis, ausführlicheBeschreibung, lieferzeit, verkäufer } = await req.json()
         await connectMongoDB()
-        await Product.create({produktName, stichWörter, produktBild, preis, ausführlicheBeschreibung, lieferzeit, vorrat, verkäufer})
+        await Product.create({produktName, stichWörter, produktBild, preis, ausführlicheBeschreibung, lieferzeit, verkäufer})
 
         return NextResponse.json({ message: "Produkt wurde erstellt" }, { status: 201 });
     } catch (error) {

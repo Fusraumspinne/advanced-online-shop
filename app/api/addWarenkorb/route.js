@@ -4,9 +4,9 @@ import Warenkorb from "@/models/warenkorb";
 
 export async function POST(req) {
     try {
-        const { email, produkt, anzahl, preis, produktName, lieferzeit, vorrat, produktBild } = await req.json()
+        const { email, produkt, anzahl, preis, produktName, lieferzeit, produktBild } = await req.json()
         await connectMongoDB()
-        await Warenkorb.create({ email, produkt, anzahl, preis, produktName, lieferzeit, vorrat, produktBild })
+        await Warenkorb.create({ email, produkt, anzahl, preis, produktName, lieferzeit, produktBild })
 
         return NextResponse.json({ message: "Produkt wurde zum Warenkorb hinzugefügt" }, { status: 201 });
     } catch (error) {

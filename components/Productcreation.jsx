@@ -16,7 +16,6 @@ function Productcreation() {
     const [preis, setPreis] = useState("")
     const [ausführlicheBeschreibung, setAusführlicheBeschreibung] = useState("")
     const [lieferzeit, setLieferzeit] = useState("")
-    const [vorrat, setVorrat] = useState()
     const [verkäufer, setVerkäufer] = useState("")
     const [vorschauCard, setVoraschauCard] = useState(true)
 
@@ -46,10 +45,8 @@ function Productcreation() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!produktName || !stichWörter || !produktBild || !preis || !ausführlicheBeschreibung || !lieferzeit || !vorrat || !verkäufer) {
+        if (!produktName || !stichWörter || !produktBild || !preis || !ausführlicheBeschreibung || !lieferzeit || !verkäufer) {
             console.log("Alle Inputfelder werden benötigt")
-
-            console.log(produktName, stichWörter, produktBild, preis, ausführlicheBeschreibung, lieferzeit, vorrat, verkäufer)
             return
         }
 
@@ -64,7 +61,6 @@ function Productcreation() {
                     preis,
                     ausführlicheBeschreibung,
                     lieferzeit,
-                    vorrat,
                     verkäufer
                 })
             })
@@ -74,12 +70,12 @@ function Productcreation() {
                 const form = e.target
                 form.reset()
 
+                setProduktBild("")
                 setProduktName("");
                 setStichWörter("");
                 setPreis("");
                 setAusführlicheBeschreibung("");
                 setLieferzeit("");
-                setVorrat();
             } else {
                 console.log("Fehler beim erstellen eines Produktes")
             }
@@ -102,7 +98,6 @@ function Productcreation() {
                             <Input placeholder={"8,99"} type={"text"} onChange={(e) => setPreis(formatPrice(e.target.value))} isLabel={true} contentLabel={"Preis"} extraClass={"mt-4"} />
                             <Textarea placeholder={"Aus hartem Stahl gefertigt um Jahre mit Kindern und harter Benutzung stand halten zu können."} rows={5} onChange={(e) => setAusführlicheBeschreibung(e.target.value)} isLabel={true} contentLabel={"Ausführliche Beschreibung"} extraClass={"mt-4"} />
                             <Input placeholder={"1-2"} type={"text"} onChange={(e) => setLieferzeit(e.target.value)} isLabel={true} contentLabel={"Lieferzeit"} extraClass={"mt-4"} />
-                            <Input placeholder={"23"} type={"text"} onChange={(e) => setVorrat(e.target.value)} isLabel={true} contentLabel={"Vorrat"} extraClass={"mt-4"} />
 
                             <div className='row'>
                                 <div className='col-9'>
@@ -146,7 +141,6 @@ function Productcreation() {
                                         <p>Verkäufer: {verkäufer}</p>
                                         <p>Preis: {preis ? `${preis}€` : ''}</p>
                                         <p>Lieferzeit: {lieferzeit ? `${lieferzeit} Werktage` : ''}</p>
-                                        <p>Vorrat: {vorrat ? `${vorrat} Stück` : ''}</p>
 
                                         <MagicButton content={"In den Warenkorb"} />
                                     </div>
