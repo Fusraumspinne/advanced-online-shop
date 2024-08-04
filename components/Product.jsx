@@ -96,7 +96,8 @@ function Product({ params }) {
   return (
     <div>
       <Navigationbar />
-      <div className='card mx-3' style={{ marginTop: "75px" }}>
+
+      <div className='card mx-3 product_site' style={{ marginTop: "75px" }}>
         <div className='row mx-4 mt-3'>
           <div className='col-6' style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
             <div className='d-flex justify-content-center mb-3'>
@@ -115,7 +116,30 @@ function Product({ params }) {
 
             <Input extraClass={"mb-3"} type={"number"} placeholder={"Anzahl"} onChange={(e) => setAnzahl(e.target.value)}/>
 
-            <MagicButton content={"In den Warenkorb"} funktion={addWarenkorb} extraClass={"full_width_button"}/>
+            <MagicButton content={"In den Warenkorb"} funktion={addWarenkorb} extraClass={"full_width_button mb-3"}/>
+          </div>
+        </div>
+      </div>
+
+      <div className='card mx-3 product_site_responsive' style={{ marginTop: "75px" }}>
+        <div className='mx-4 mt-3'>
+          <div style={{ maxHeight: "calc(100vh - 54px)", overflowY: "auto" }}>
+            <div className='d-flex justify-content-center mb-3'>
+              <Image src={productObject.produktBild} alt={productObject.produktBild} width={500} height={500} className='card'/>
+            </div>
+          </div>
+          <div>
+            <h1 className='fs-2'>{productObject.produktName}</h1>
+            <p className='fs-4'>{productObject.stichWörter}</p>
+            <p style={{ fontSize: "18px" }}>{productObject.ausführlicheBeschreibung}</p>
+
+            <p>Verkäufer: {productObject.verkäufer}</p>
+            <p>Preis: {productObject.preis}€</p>
+            <p>Lieferzeit: {productObject.lieferzeit} Werktage</p>
+
+            <Input extraClass={"mb-3"} type={"number"} placeholder={"Anzahl"} onChange={(e) => setAnzahl(e.target.value)}/>
+
+            <MagicButton content={"In den Warenkorb"} funktion={addWarenkorb} extraClass={"full_width_button mb-3"}/>
           </div>
         </div>
       </div>

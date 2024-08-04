@@ -259,7 +259,7 @@ function Warenkorb() {
       <Navigationbar />
 
       <div style={{ marginTop: "75px" }}>
-        <div className='row mx-4'>
+        <div className='row mx-4 warenkorb'>
           <div className='col-8 card px-0' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
             <table className="table mb-0">
               <thead>
@@ -285,6 +285,51 @@ function Warenkorb() {
             </table>
           </div>
           <div className='col-4'>
+            <form onSubmit={handleSubmit}>
+              <p className='fs-5'>Bestellbeschreibung</p>
+
+              <p>Produktepreis: {productPrice ? productPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
+              <p>Anzahl: {totalItems ? `${totalItems} Produkte` : '0 Produkte'}</p>
+              <p>Lieferkosten: {lieferKosten ? lieferKosten.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
+              <p>Gesamtpreis: {totalPrice ? totalPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
+
+              <p className='fs-5'>aktuelles Guthaben</p>
+
+              <p>{formattedGuthaben ? formattedGuthaben.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '€' : '0,00€'}</p>
+
+              <Input isLabel={true} contentLabel={"Adresse"} placeholder={"Bülserstraße 80"} onChange={(e) => setAdresse(e.target.value)} value={adresse} />
+
+              <MagicButton content={"Bezahlen"} type={"submit"} extraClass={"full_width_button mt-3"} />
+            </form>
+          </div>
+        </div>
+
+        <div className='mx-4 warenkorb_responsive'>
+          <div className='card px-0' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
+            <table className="table mb-0" style={{minHeight: "75px", minWidth: "500px", overflow: "auto"}}>
+              <thead>
+                <tr>
+                  <th scope="col">Bild</th>
+                  <th scope="col">Produkt</th>
+                  <th scope="col">Anzahl</th>
+                  <th scope="col">Preis</th>
+                  <th scope="col">Löschen</th>
+                </tr>
+              </thead>
+              <tbody>
+                {warenkorb.map((item) => (
+                  <tr key={item._id}>
+                    <td><Image src={item.produktBild} alt={item.produktName} width={25} height={25} className='card' style={{height: "25px", width: "25px"}}/></td>
+                    <td><Link href={`/product/${item.produkt}`}>{item.produktName}</Link></td>
+                    <td>{item.anzahl}</td>
+                    <td>{item.preis ? `${item.preis}€` : ''}</td>
+                    <td><DeleteIcon className='curser_pointer' onClick={() => handleDelete(item._id)} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className='mt-5'>
             <form onSubmit={handleSubmit}>
               <p className='fs-5'>Bestellbeschreibung</p>
 

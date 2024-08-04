@@ -93,12 +93,46 @@
     display: none;
 }
 
+.warenkorb{
+    display: block;
+}
+
+.warenkorb_responsive{
+    display: none;
+}
+
+.product_site{
+    display: block;
+}
+
+.product_site_responsive{
+    display: none !important;
+}
+
+@media screen and (max-width: 650px) {
+    .product_site{
+        display: none !important	;
+    }
+
+    .product_site_responsive{
+        display: block !important;
+    }
+}
+
 @media screen and (max-width: 850px){
     .product_creation{
         display: none !important;
     }
 
     .product_creation_resposive{
+        display: block !important;
+    }
+
+    .warenkorb{
+        display: none !important;
+    }
+    
+    .warenkorb_responsive{
         display: block !important;
     }
 }

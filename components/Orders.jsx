@@ -54,7 +54,7 @@ function Orders() {
       <div style={{ marginTop: "75px" }}>
         <div className='mx-4'>
           <div className='card px-0' style={{ maxHeight: "calc(100vh - 56px)", overflowY: "auto" }}>
-            <table className="table  mb-0">
+            <table className="table  mb-0" style={{minWidth: "750px", overflow: "auto"}}>
               <thead>
                 <tr>
                   <th scope="col">Bild</th>
