@@ -45,7 +45,7 @@ function Login() {
         <h1 className='mt-4 mx-4'>Login</h1>
 
         <form onSubmit={handleSubmit}>
-          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} extraClass={"mt-3 mx-4"} />
+          <Input type={"text"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} extraClass={"mt-3 mx-4"} />
 
           <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} extraClass={"mt-3 mx-4"} />
 

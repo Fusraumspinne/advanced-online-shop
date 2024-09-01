@@ -69,7 +69,7 @@ function Signup() {
         <form onSubmit={handleSubmit}>
           <Input type={"text"} placeholder={"Username"} onChange={(e) => setName(e.target.value)} extraClass={"mt-3 mx-4"} />
 
-          <Input type={"email"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} extraClass={"mt-3 mx-4"} />
+          <Input type={"text"} placeholder={"E-Mail"} onChange={(e) => setEmail(e.target.value)} extraClass={"mt-3 mx-4"} />
 
           <Input type={"password"} placeholder={"Password"} onChange={(e) => setPassword(e.target.value)} extraClass={"mt-3 mx-4"} />
           <div className='mx-4'>
